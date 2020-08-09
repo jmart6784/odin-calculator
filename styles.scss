@@ -1,3 +1,148 @@
-h1 {
-  font-size: 50px;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+  background-color: rgb(73, 0, 0);
+  background-image: linear-gradient(
+    rgb(133, 0, 0), 
+    rgb(123, 0, 0), 
+    rgb(113, 0, 0), 
+    rgb(103, 0, 0), 
+    rgb(93, 0, 0), 
+    rgb(83, 0, 0), 
+    rgb(73, 0, 0), 
+    rgb(63, 0, 0), 
+    rgb(53, 0, 0), 
+    rgb(43, 0, 0), 
+    rgb(33, 0, 0), 
+    rgb(23, 0, 0), 
+    rgb(13, 0, 0), 
+    rgb(3, 0, 0), 
+    rgb(0, 0, 0));
+}
+
+#container {
+  height: 100vh;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+#calc-container {
+
+}
+
+#calc-display {
+  background-color: rgb(0, 0, 0);
+  border: 0px;
+  color: white;
+  height: 100px;
+  width: 500px;
+  font-size: 30px;
+  padding-left: 10px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+#numbers-div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+#num-0 {
+  grid-column: 2 / 2;
+}
+
+.calc-btn {
+  background-color: rgb(0, 0, 0);
+  border: 3px solid rgb(0, 0, 0);
+  color: white;
+  width: 100%;
+  padding: 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.calc-btn:hover {
+  background-color: rgb(43, 0, 0);
+  border: 3px solid white;
+  transform: scale(1.2, 1.2);
+  transition: 0.15s;
+}
+
+#clear {
+  background-color: rgb(51, 0, 0);
+  border: 3px solid rgb(51, 0, 0);
+}
+
+#clear:hover {
+  border: 3px solid white;
+  background-color: rgb(134, 0, 0);
+}
+
+#equal {
+  background-color: rgb(0, 59, 0);
+  border: 3px solid rgb(0, 59, 0);
+}
+
+#equal:hover {
+  background-color: rgb(0, 95, 0);
+  border: 3px solid rgb(255, 255, 255);
+}
+
+.op-btn {
+  background-color: rgb(15, 15, 15);
+  border: 3px solid rgb(15, 15, 15);
+}
+
+.op-btn:hover {
+  background-color: rgb(46, 46, 46);
+  border: 3px solid rgb(255, 255, 255);
 }

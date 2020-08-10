@@ -28,7 +28,8 @@ function operate(operator, x, y) {
   } else if (operator == "/") {
     return divide(x, y);
   } else {
-    console.log("Error: operator invalid");
+    calcDisplay.textContent = "";
+    answerDisplay.textContent = "";
   };
 };
 
@@ -164,19 +165,30 @@ function getYNumber() {
   } else if (calcDisplay.textContent.includes("+")) {
     y = parseInt(calcDisplay.textContent.split("+")[1]);
   } else {
-    console.log("Error: Could not find operator.")
+    calcDisplay.textContent = "";
+    answerDisplay.textContent = "";
   };
 };
 
 equalBtn.addEventListener("click", function() {
   getYNumber();
 
-  answerDisplay.textContent = operate(operator, x, y);
-  calcDisplay.textContent = "";
-
-  operator = "";
-  x = "";
-  y = "";
+  if (x <= 0 && y <= 0) {
+    calcDisplay.textContent = "";
+    answerDisplay.textContent = "Infinity";
+  } else {
+    if (isNaN(operate(operator, x, y)) || calcDisplay.textContent === "" || isNaN(x) || isNaN(y) || operator === "") {
+      calcDisplay.textContent = "";
+      answerDisplay.textContent = "";
+    } else {
+      answerDisplay.textContent = Math.round(( operate(operator, x, y) + Number.EPSILON) * 100) / 100
+      calcDisplay.textContent = "";
+    
+      operator = "";
+      x = "";
+      y = "";
+    };
+  };
 });
 
 // setInterval(function() {

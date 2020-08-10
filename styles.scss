@@ -47,6 +47,10 @@ table {
 	border-spacing: 0;
 }
 
+h1, h2, h3, h4, h5, h6, p, a, div, span, li, ol {
+  font-family: 'Changa', sans-serif;
+}
+
 body {
   background-color: rgb(73, 0, 0);
   background-image: linear-gradient(
@@ -74,17 +78,38 @@ body {
   justify-items: center;
 }
 
-#calc-container {
+// #calc-container {
 
+// }
+
+#calc-title {
+  color: white;
+  font-size: 60px;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 800;
 }
 
 #calc-display {
   background-color: rgb(46, 46, 46);
   border: 0px;
   color: white;
-  height: 100px;
+  height: 50px;
   width: 500px;
-  font-size: 30px;
+  font-size: 35px;
+  padding-left: 10px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+#calc-answer {
+  background-color: rgb(46, 46, 46);
+  border: 0px;
+  color: white;
+  height: 50px;
+  width: 500px;
+  font-size: 35px;
   padding-left: 10px;
   display: grid;
   align-items: center;
@@ -107,7 +132,7 @@ body {
   width: 100%;
   padding: 10px;
   font-size: 25px;
-  font-weight: bold;
+  font-weight: 900;
 }
 
 .calc-btn:hover {

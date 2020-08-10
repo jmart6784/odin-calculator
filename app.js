@@ -1,3 +1,7 @@
+let operator;
+let x;
+let y;
+
 function add(x, y) {
   return x + y;
 };
@@ -14,10 +18,6 @@ function divide(x, y) {
   return x / y;
 };
 
-// let operator = prompt("Add, subtract, multiply, or divide: Enter +, -, *, or /");
-// let x = parseInt(prompt("Enter a number"));
-// let y = parseInt(prompt("Enter another number"));
-
 function operate(operator, x, y) {
   if (operator == "+") {
     return add(x, y);
@@ -32,10 +32,9 @@ function operate(operator, x, y) {
   };
 };
 
-// console.log(operate(operator, x, y));
-
 // Calculator buttons
 let calcDisplay = document.getElementById("calc-display");
+let answerDisplay = document.getElementById("calc-answer");
 
 let num0 = document.getElementById("num-0");
 let num1 = document.getElementById("num-1");
@@ -97,28 +96,89 @@ num9.addEventListener("click", function() {
   calcDisplay.textContent += "9";
 });
 
+// Check for double operators EX: 2++2
+function validLastChar() {
+  let lastChar = calcDisplay.textContent.slice(-1)[0];
+
+  if (lastChar === "/" || lastChar === "*" || lastChar === "+" || lastChar === "-") {
+    return false
+  } else {
+    return true
+  };
+};
+
 // Operator buttons
 divideBtn.addEventListener("click", function() {
-  calcDisplay.textContent += "/";
+  if (calcDisplay.textContent === "" || validLastChar() === false) {
+    console.log("EMPTY");
+  } else {
+    x = parseInt(calcDisplay.textContent);
+    operator = "/";
+    calcDisplay.textContent += "/";
+  };
 });
 
 multiplyBtn.addEventListener("click", function() {
-  calcDisplay.textContent += "*";
+  if (calcDisplay.textContent === "" || validLastChar() === false) {
+    console.log("EMPTY");
+  } else {
+    x = parseInt(calcDisplay.textContent);
+    operator = "*";
+    calcDisplay.textContent += "*";
+  };
 });
 
 subtractBtn.addEventListener("click", function() {
-  calcDisplay.textContent += "-";
+  if (calcDisplay.textContent === "" || validLastChar() === false) {
+    console.log("EMPTY");
+  } else {
+    x = parseInt(calcDisplay.textContent);
+    operator = "-";
+    calcDisplay.textContent += "-";
+  };
 });
 
 additionBtn.addEventListener("click", function() {
-  calcDisplay.textContent += "+";
+  if (calcDisplay.textContent === "" || validLastChar() === false) {
+    console.log("EMPTY");
+  } else {
+    x = parseInt(calcDisplay.textContent);
+    operator = "+";
+    calcDisplay.textContent += "+";
+  };
 });
 
 // Clear and Equal buttons
 clearBtn.addEventListener("click", function() {
   calcDisplay.textContent = "";
+  answerDisplay.textContent = "";
 });
 
+function getYNumber() {
+  if (calcDisplay.textContent.includes("/")) {
+    y = parseInt(calcDisplay.textContent.split("/")[1]);
+  } else if (calcDisplay.textContent.includes("*")) {
+    y = parseInt(calcDisplay.textContent.split("*")[1]);
+  } else if (calcDisplay.textContent.includes("-")) {
+    y = parseInt(calcDisplay.textContent.split("-")[1]);
+  } else if (calcDisplay.textContent.includes("+")) {
+    y = parseInt(calcDisplay.textContent.split("+")[1]);
+  } else {
+    console.log("Error: Could not find operator.")
+  };
+};
+
 equalBtn.addEventListener("click", function() {
-  
+  getYNumber();
+
+  answerDisplay.textContent = operate(operator, x, y);
+  calcDisplay.textContent = "";
+
+  operator = "";
+  x = "";
+  y = "";
 });
+
+// setInterval(function() {
+//   console.log(calcDisplay.textContent.slice(-1)[0]);
+// }, 1000);

@@ -90,6 +90,13 @@ body {
   font-weight: 800;
 }
 
+#calc-top-div {
+  display: grid;
+  grid-template-columns: 10fr 1.5fr;
+  align-items: center;
+  justify-items: center;
+}
+
 #calc-display {
   background-color: rgb(46, 46, 46);
   border: 0px;
@@ -97,6 +104,7 @@ body {
   height: 50px;
   width: 500px;
   font-size: 35px;
+  padding-top: 10px;
   padding-left: 10px;
   display: grid;
   align-items: center;
@@ -116,6 +124,27 @@ body {
   align-items: center;
   justify-items: center;
   font-family: 'Press Start 2P', cursive;
+}
+
+#del-div {
+  height: 100%;
+  width: 100%;
+}
+
+#delete {
+  height: 100%;
+  width: 100%;
+  font-size: 50px;
+  text-align: center;
+  background-color: rgb(51, 0, 0);
+  border: 3px solid rgb(51, 0, 0);
+  color: white;
+  padding-bottom: 10px;
+}
+
+#delete:hover {
+  border: 3px solid white;
+  background-color: rgb(134, 0, 0);
 }
 
 #numbers-div {

@@ -80,6 +80,17 @@ body {
   font-weight: 800;
 }
 
+#calc-top-div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 10fr 1.5fr;
+      grid-template-columns: 10fr 1.5fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+
 #calc-display {
   background-color: #2e2e2e;
   border: 0px;
@@ -87,6 +98,7 @@ body {
   height: 50px;
   width: 500px;
   font-size: 35px;
+  padding-top: 10px;
   padding-left: 10px;
   display: -ms-grid;
   display: grid;
@@ -112,6 +124,27 @@ body {
           align-items: center;
   justify-items: center;
   font-family: 'Press Start 2P', cursive;
+}
+
+#del-div {
+  height: 100%;
+  width: 100%;
+}
+
+#delete {
+  height: 100%;
+  width: 100%;
+  font-size: 50px;
+  text-align: center;
+  background-color: #330000;
+  border: 3px solid #330000;
+  color: white;
+  padding-bottom: 10px;
+}
+
+#delete:hover {
+  border: 3px solid white;
+  background-color: #860000;
 }
 
 #numbers-div {

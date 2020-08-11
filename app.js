@@ -19,13 +19,13 @@ function divide(x, y) {
 };
 
 function operate(operator, x, y) {
-  if (operator == "+") {
+  if (operator === "+") {
     return add(x, y);
-  } else if (operator == "-") {
+  } else if (operator === "-") {
     return subtract(x, y);
-  } else if (operator == "*") {
+  } else if (operator === "*") {
     return multiply(x, y);
-  } else if (operator == "/") {
+  } else if (operator === "/") {
     return divide(x, y);
   } else {
     calcDisplay.textContent = "";
@@ -54,6 +54,7 @@ let subtractBtn = document.getElementById("op-subtract");
 let additionBtn = document.getElementById("op-addition");
 
 let clearBtn = document.getElementById("clear");
+let backspaceBtn = document.getElementById("delete");
 let equalBtn = document.getElementById("equal");
 
 // Calculator buttons functionality
@@ -113,8 +114,6 @@ divideBtn.addEventListener("click", function() {
   if (calcDisplay.textContent === "" || validLastChar() === false) {
     console.log("EMPTY");
   } else {
-    x = parseInt(calcDisplay.textContent);
-    operator = "/";
     calcDisplay.textContent += "/";
   };
 });
@@ -123,8 +122,6 @@ multiplyBtn.addEventListener("click", function() {
   if (calcDisplay.textContent === "" || validLastChar() === false) {
     console.log("EMPTY");
   } else {
-    x = parseInt(calcDisplay.textContent);
-    operator = "*";
     calcDisplay.textContent += "*";
   };
 });
@@ -133,8 +130,6 @@ subtractBtn.addEventListener("click", function() {
   if (calcDisplay.textContent === "" || validLastChar() === false) {
     console.log("EMPTY");
   } else {
-    x = parseInt(calcDisplay.textContent);
-    operator = "-";
     calcDisplay.textContent += "-";
   };
 });
@@ -143,35 +138,47 @@ additionBtn.addEventListener("click", function() {
   if (calcDisplay.textContent === "" || validLastChar() === false) {
     console.log("EMPTY");
   } else {
-    x = parseInt(calcDisplay.textContent);
-    operator = "+";
     calcDisplay.textContent += "+";
   };
 });
 
-// Clear and Equal buttons
+// Clear, Backspace and Equal buttons
 clearBtn.addEventListener("click", function() {
   calcDisplay.textContent = "";
   answerDisplay.textContent = "";
 });
 
-function getYNumber() {
-  if (calcDisplay.textContent.includes("/")) {
-    y = parseInt(calcDisplay.textContent.split("/")[1]);
-  } else if (calcDisplay.textContent.includes("*")) {
-    y = parseInt(calcDisplay.textContent.split("*")[1]);
-  } else if (calcDisplay.textContent.includes("-")) {
-    y = parseInt(calcDisplay.textContent.split("-")[1]);
-  } else if (calcDisplay.textContent.includes("+")) {
-    y = parseInt(calcDisplay.textContent.split("+")[1]);
+backspaceBtn.addEventListener("click", function () {
+  calcDisplay.textContent = calcDisplay.textContent.substring(0, calcDisplay.textContent.length - 1);
+});
+
+function assignNumbers() {
+  let problem = calcDisplay.textContent
+
+  if (problem.includes("/")) {
+    operator = "/";
+    x = parseInt(problem.split("/")[0]);
+    y = parseInt(problem.split("/")[1]);
+  } else if (problem.includes("*")) {
+    operator = "*";
+    x = parseInt(problem.split("*")[0]);
+    y = parseInt(problem.split("*")[1]);
+  } else if (problem.includes("-")) {
+    operator = "-";
+    x = parseInt(problem.split("-")[0]);
+    y = parseInt(problem.split("-")[1]);
+  } else if (problem.includes("+")) {
+    operator = "+";
+    x = parseInt(problem.split("+")[0]);
+    y = parseInt(problem.split("+")[1]);
   } else {
-    calcDisplay.textContent = "";
+    problem = "";
     answerDisplay.textContent = "";
   };
 };
 
 equalBtn.addEventListener("click", function() {
-  getYNumber();
+  assignNumbers();
 
   if (x <= 0 && y <= 0) {
     calcDisplay.textContent = "";
@@ -190,7 +197,3 @@ equalBtn.addEventListener("click", function() {
     };
   };
 });
-
-// setInterval(function() {
-//   console.log(calcDisplay.textContent.slice(-1)[0]);
-// }, 1000);

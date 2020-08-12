@@ -78,10 +78,6 @@ body {
   justify-items: center;
 }
 
-// #calc-container {
-
-// }
-
 #calc-title {
   color: white;
   font-size: 60px;
@@ -101,7 +97,7 @@ body {
   background-color: rgb(46, 46, 46);
   border: 0px;
   color: white;
-  height: 50px;
+  height: 100px;
   width: 500px;
   font-size: 35px;
   padding-top: 10px;
@@ -110,20 +106,8 @@ body {
   align-items: center;
   justify-items: center;
   font-family: 'Press Start 2P', cursive;
-}
-
-#calc-answer {
-  background-color: rgb(46, 46, 46);
-  border: 0px;
-  color: white;
-  height: 50px;
-  width: 500px;
-  font-size: 35px;
-  padding-left: 10px;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  font-family: 'Press Start 2P', cursive;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 #del-div {
@@ -140,6 +124,7 @@ body {
   border: 3px solid rgb(51, 0, 0);
   color: white;
   padding-bottom: 10px;
+  outline: none;
 }
 
 #delete:hover {
@@ -164,6 +149,7 @@ body {
   padding: 10px;
   font-size: 25px;
   font-weight: 900;
+  outline: none;
 }
 
 .calc-btn:hover {

@@ -29,13 +29,12 @@ function operate(operator, x, y) {
     return divide(x, y);
   } else {
     calcDisplay.textContent = "";
-    answerDisplay.textContent = "";
   };
 };
 
 // Calculator buttons
+let allBtns = document.querySelectorAll(".calc-btn");
 let calcDisplay = document.getElementById("calc-display");
-let answerDisplay = document.getElementById("calc-answer");
 
 let num0 = document.getElementById("num-0");
 let num1 = document.getElementById("num-1");
@@ -59,141 +58,183 @@ let equalBtn = document.getElementById("equal");
 
 // Calculator buttons functionality
 num0.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "0";
 });
 
 num1.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "1";
 });
 
 num2.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "2";
 });
 
 num3.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "3";
 });
 
 num4.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "4";
 });
 
 num5.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "5";
 });
 
 num6.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "6";
 });
 
 num7.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "7";
 });
 
 num8.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "8";
 });
 
 num9.addEventListener("click", function() {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+    calcDisplay.textContent = "";
+  };
   calcDisplay.textContent += "9";
 });
 
-// Check for double operators EX: 2++2
-function validLastChar() {
-  let lastChar = calcDisplay.textContent.slice(-1)[0];
+// Precalculate math to be able to chain functions
+let preArray = [];
 
-  if (lastChar === "/" || lastChar === "*" || lastChar === "+" || lastChar === "-") {
-    return false
-  } else {
-    return true
+function preCalculate(operand) {
+
+  let y = calcDisplay.textContent
+
+  if (operand === "/") {
+    if (y !== "") {
+      calcDisplay.textContent = Math.round(( operate("/", preArray[0], y) + Number.EPSILON) * 100) / 100;
+      preArray = [];
+    };
+  } else if (operand === "*") {
+    if (y !== "") {
+      calcDisplay.textContent = Math.round(( operate("*", preArray[0], y) + Number.EPSILON) * 100) / 100;
+      preArray = [];
+    };
+  } else if (operand === "-") {
+    if (y !== "") {
+      calcDisplay.textContent = Math.round(( operate("-", preArray[0], y) + Number.EPSILON) * 100) / 100;
+      preArray = [];
+    };
+  } else if (operand === "+") {
+    if (y !== "") {
+      calcDisplay.textContent = Math.round(( operate("+", preArray[0], y) + Number.EPSILON) * 100) / 100;
+      preArray = [];
+    };
   };
 };
 
 // Operator buttons
 divideBtn.addEventListener("click", function() {
-  if (calcDisplay.textContent === "" || validLastChar() === false) {
-    console.log("EMPTY");
-  } else {
-    calcDisplay.textContent += "/";
+  if (calcDisplay.textContent !== "") {
+    x = parseInt(calcDisplay.textContent);
+
+    if ( isNaN(x) === true ) {
+      calcDisplay.textContent = "";
+    } else {
+      preArray.push(x, "/");
+      calcDisplay.textContent = "";
+      preCalculate("/");
+    };
   };
 });
 
 multiplyBtn.addEventListener("click", function() {
-  if (calcDisplay.textContent === "" || validLastChar() === false) {
-    console.log("EMPTY");
-  } else {
-    calcDisplay.textContent += "*";
+  if (calcDisplay.textContent !== "") {
+    x = parseInt(calcDisplay.textContent);
+
+    if ( isNaN(x) === true ) {
+      calcDisplay.textContent = "";
+    } else {
+      preArray.push(x, "*");
+      calcDisplay.textContent = "";
+      preCalculate("*");
+    };
   };
 });
 
 subtractBtn.addEventListener("click", function() {
-  if (calcDisplay.textContent === "" || validLastChar() === false) {
-    console.log("EMPTY");
-  } else {
-    calcDisplay.textContent += "-";
+  if (calcDisplay.textContent !== "") {
+    x = parseInt(calcDisplay.textContent);
+
+    if ( isNaN(x) === true ) {
+      calcDisplay.textContent = "";
+    } else {
+      preArray.push(x, "-");
+      calcDisplay.textContent = "";
+      preCalculate("-");
+    };
   };
 });
 
 additionBtn.addEventListener("click", function() {
-  if (calcDisplay.textContent === "" || validLastChar() === false) {
-    console.log("EMPTY");
-  } else {
-    calcDisplay.textContent += "+";
+  if (calcDisplay.textContent !== "") {
+    x = parseInt(calcDisplay.textContent);
+
+    if ( isNaN(x) === true ) {
+      calcDisplay.textContent = "";
+    } else {
+      preArray.push(x, "+");
+      calcDisplay.textContent = "";
+      preCalculate("-");
+    };
   };
 });
 
 // Clear, Backspace and Equal buttons
 clearBtn.addEventListener("click", function() {
   calcDisplay.textContent = "";
-  answerDisplay.textContent = "";
 });
 
 backspaceBtn.addEventListener("click", function () {
   calcDisplay.textContent = calcDisplay.textContent.substring(0, calcDisplay.textContent.length - 1);
 });
 
-function assignNumbers() {
-  let problem = calcDisplay.textContent
-
-  if (problem.includes("/")) {
-    operator = "/";
-    x = parseInt(problem.split("/")[0]);
-    y = parseInt(problem.split("/")[1]);
-  } else if (problem.includes("*")) {
-    operator = "*";
-    x = parseInt(problem.split("*")[0]);
-    y = parseInt(problem.split("*")[1]);
-  } else if (problem.includes("-")) {
-    operator = "-";
-    x = parseInt(problem.split("-")[0]);
-    y = parseInt(problem.split("-")[1]);
-  } else if (problem.includes("+")) {
-    operator = "+";
-    x = parseInt(problem.split("+")[0]);
-    y = parseInt(problem.split("+")[1]);
-  } else {
-    problem = "";
-    answerDisplay.textContent = "";
-  };
-};
-
 equalBtn.addEventListener("click", function() {
-  assignNumbers();
+  // Send last number in operation to array
+  preArray.push(parseInt(calcDisplay.textContent));
 
-  if (x <= 0 && y <= 0) {
-    calcDisplay.textContent = "";
-    answerDisplay.textContent = "Infinity";
+  if (isNaN(operate(preArray[1], preArray[0], preArray[2])) || calcDisplay.textContent === "" || isNaN(preArray[0]) || isNaN(preArray[2]) || preArray === "") {
+    // Error handling and array reset
+    calcDisplay.textContent = "Error";
+    preArray = [];
   } else {
-    if (isNaN(operate(operator, x, y)) || calcDisplay.textContent === "" || isNaN(x) || isNaN(y) || operator === "") {
-      calcDisplay.textContent = "";
-      answerDisplay.textContent = "";
-    } else {
-      answerDisplay.textContent = Math.round(( operate(operator, x, y) + Number.EPSILON) * 100) / 100
-      calcDisplay.textContent = "";
-    
-      operator = "";
-      x = "";
-      y = "";
-    };
+    calcDisplay.textContent = Math.round(( operate(preArray[1], preArray[0], preArray[2]) + Number.EPSILON) * 100) / 100;
+
+    // reset array
+    preArray = [];
   };
 });

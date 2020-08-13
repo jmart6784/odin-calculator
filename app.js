@@ -1,7 +1,3 @@
-let operator;
-let x;
-let y;
-
 function add(x, y) {
   return x + y;
 };
@@ -33,7 +29,6 @@ function operate(operator, x, y) {
 };
 
 // Calculator buttons
-let allBtns = document.querySelectorAll(".calc-btn");
 let calcDisplay = document.getElementById("calc-display");
 
 let num0 = document.getElementById("num-0");
@@ -58,70 +53,70 @@ let equalBtn = document.getElementById("equal");
 
 // Calculator buttons functionality
 num0.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "0";
 });
 
 num1.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "1";
 });
 
 num2.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "2";
 });
 
 num3.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "3";
 });
 
 num4.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "4";
 });
 
 num5.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "5";
 });
 
 num6.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "6";
 });
 
 num7.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "7";
 });
 
 num8.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "8";
 });
 
 num9.addEventListener("click", function() {
-  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error") {
+  if (calcDisplay.textContent === "Infinity" || calcDisplay.textContent === "Error" || calcDisplay.textContent === "NaN" || calcDisplay.textContent === "-Infinity") {
     calcDisplay.textContent = "";
   };
   calcDisplay.textContent += "9";
@@ -129,87 +124,101 @@ num9.addEventListener("click", function() {
 
 // Precalculate math to be able to chain functions
 let preArray = [];
-
-function preCalculate(operand) {
-
-  let y = calcDisplay.textContent
-
-  if (operand === "/") {
-    if (y !== "") {
-      calcDisplay.textContent = Math.round(( operate("/", preArray[0], y) + Number.EPSILON) * 100) / 100;
-      preArray = [];
-    };
-  } else if (operand === "*") {
-    if (y !== "") {
-      calcDisplay.textContent = Math.round(( operate("*", preArray[0], y) + Number.EPSILON) * 100) / 100;
-      preArray = [];
-    };
-  } else if (operand === "-") {
-    if (y !== "") {
-      calcDisplay.textContent = Math.round(( operate("-", preArray[0], y) + Number.EPSILON) * 100) / 100;
-      preArray = [];
-    };
-  } else if (operand === "+") {
-    if (y !== "") {
-      calcDisplay.textContent = Math.round(( operate("+", preArray[0], y) + Number.EPSILON) * 100) / 100;
-      preArray = [];
-    };
-  };
-};
+let evaluated = [];
 
 // Operator buttons
 divideBtn.addEventListener("click", function() {
   if (calcDisplay.textContent !== "") {
-    x = parseInt(calcDisplay.textContent);
 
-    if ( isNaN(x) === true ) {
+    if ( isNaN(parseInt(calcDisplay.textContent)) === true ) {
       calcDisplay.textContent = "";
     } else {
-      preArray.push(x, "/");
-      calcDisplay.textContent = "";
-      preCalculate("/");
+      // Check if 1 number and a operator are present in array
+      if (preArray.length === 2) {
+        // 0 / 0 Error Handling
+        if (preArray[1] === "/" && preArray[0] === 0 && parseInt(calcDisplay.textContent) === 0) {
+          calcDisplay.textContent = "Error";
+        } else {
+          // answer to be placed in evaluated array
+          let ans = Math.round(( operate(preArray[1], preArray[0], parseInt(calcDisplay.textContent)) + Number.EPSILON) * 100) / 100;
+          evaluated = [];
+          evaluated.push(ans);
+  
+          preArray = [];
+          preArray.push(ans, "/");
+          calcDisplay.textContent = "";
+        };
+      } else {
+        preArray.push(parseInt(calcDisplay.textContent), "/");
+        calcDisplay.textContent = "";
+      };
     };
   };
 });
 
 multiplyBtn.addEventListener("click", function() {
   if (calcDisplay.textContent !== "") {
-    x = parseInt(calcDisplay.textContent);
 
-    if ( isNaN(x) === true ) {
+    if ( isNaN(parseInt(calcDisplay.textContent)) === true ) {
       calcDisplay.textContent = "";
     } else {
-      preArray.push(x, "*");
-      calcDisplay.textContent = "";
-      preCalculate("*");
+      if (preArray.length === 2) {
+        let ans = Math.round(( operate(preArray[1], preArray[0], parseInt(calcDisplay.textContent)) + Number.EPSILON) * 100) / 100;
+
+        evaluated = [];
+        evaluated.push(ans);
+
+        preArray = [];
+        preArray.push(ans, "*");
+        calcDisplay.textContent = "";
+      } else {
+        preArray.push(parseInt(calcDisplay.textContent), "*");
+        calcDisplay.textContent = "";
+      };
     };
   };
 });
 
 subtractBtn.addEventListener("click", function() {
   if (calcDisplay.textContent !== "") {
-    x = parseInt(calcDisplay.textContent);
 
-    if ( isNaN(x) === true ) {
+    if ( isNaN(parseInt(calcDisplay.textContent)) === true ) {
       calcDisplay.textContent = "";
     } else {
-      preArray.push(x, "-");
-      calcDisplay.textContent = "";
-      preCalculate("-");
+      if (preArray.length === 2) {
+        let ans = Math.round(( operate(preArray[1], preArray[0], parseInt(calcDisplay.textContent)) + Number.EPSILON) * 100) / 100;;
+        evaluated = [];
+        evaluated.push(ans);
+
+        preArray = [];
+        preArray.push(ans, "-");
+        calcDisplay.textContent = "";
+      } else {
+        preArray.push(parseInt(calcDisplay.textContent), "-");
+        calcDisplay.textContent = "";
+      };
     };
   };
 });
 
 additionBtn.addEventListener("click", function() {
   if (calcDisplay.textContent !== "") {
-    x = parseInt(calcDisplay.textContent);
 
-    if ( isNaN(x) === true ) {
+    if ( isNaN(parseInt(calcDisplay.textContent)) === true ) {
       calcDisplay.textContent = "";
     } else {
-      preArray.push(x, "+");
-      calcDisplay.textContent = "";
-      preCalculate("-");
+      if (preArray.length === 2) {
+        let ans = Math.round(( operate(preArray[1], preArray[0], parseInt(calcDisplay.textContent)) + Number.EPSILON) * 100) / 100;;
+        evaluated = [];
+        evaluated.push(ans);
+
+        preArray = [];
+        preArray.push(ans, "+");
+        calcDisplay.textContent = "";
+      } else {
+        preArray.push(parseInt(calcDisplay.textContent), "+");
+        calcDisplay.textContent = "";
+      };
     };
   };
 });
@@ -224,17 +233,26 @@ backspaceBtn.addEventListener("click", function () {
 });
 
 equalBtn.addEventListener("click", function() {
-  // Send last number in operation to array
-  preArray.push(parseInt(calcDisplay.textContent));
-
-  if (isNaN(operate(preArray[1], preArray[0], preArray[2])) || calcDisplay.textContent === "" || isNaN(preArray[0]) || isNaN(preArray[2]) || preArray === "") {
-    // Error handling and array reset
+  if (isNaN(parseInt(calcDisplay.textContent)) === true) {
     calcDisplay.textContent = "Error";
-    preArray = [];
-  } else {
-    calcDisplay.textContent = Math.round(( operate(preArray[1], preArray[0], preArray[2]) + Number.EPSILON) * 100) / 100;
 
-    // reset array
     preArray = [];
+    evaluated = [];
+  } else {
+    if (evaluated.length > 0 ) {
+      calcDisplay.textContent = Math.round(( operate(preArray[1], evaluated[0], parseInt(calcDisplay.textContent)) + Number.EPSILON) * 100) / 100;
+  
+      preArray = [];
+      evaluated = [];
+    } else if (preArray.length === 2) {
+      calcDisplay.textContent = Math.round(( operate(preArray[1], preArray[0], parseInt(calcDisplay.textContent)) + Number.EPSILON) * 100) / 100;
+  
+      preArray = [];
+      evaluated = [];
+    } else {
+      calcDisplay.textContent = "Error";
+      preArray = [];
+      evaluated = [];
+    };
   };
 });
